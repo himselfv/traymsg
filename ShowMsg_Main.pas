@@ -70,7 +70,7 @@ uses UITypes, Registry, ShellApi, InstanceChecker;
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   inherited;
-  Self.Resizeable := true; //for testing
+//  Self.Resizeable := true; //for testing
   FEvents := TObjectList<TEventRecord>.Create({OwnsObjects=}true);
   Application.ShowMainForm := false;
   ReloadEvents();

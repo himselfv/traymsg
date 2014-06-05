@@ -1,0 +1,28 @@
+syntax:glob
+*.~*
+~history
+*.dcu
+# delphi debug files
+*.map
+*.tds
+*.rsm
+*.drc
+*.identcache
+*.vlb
+*.local
+
+*/*/Thumbs.db
+
+# Don't import tlbs, import idls from which they're generated
+*.tlb
+
+# Binary files
+*.exe
+*.dll
+*.jpg
+Release/*.png
+*.fx
+*.3da
+*.sqlite
+*.dds
+*.pdf

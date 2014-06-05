@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{B00BF3A8-6A58-405F-B865-89B93C96457F}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="ShowMsg.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="FlyoutControls.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ShowMsg">
+        <MSBuild Projects="ShowMsg.dproj"/>
+    </Target>
+    <Target Name="ShowMsg:Clean">
+        <MSBuild Projects="ShowMsg.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ShowMsg:Make">
+        <MSBuild Projects="ShowMsg.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="FlyoutControls">
+        <MSBuild Projects="FlyoutControls.dproj"/>
+    </Target>
+    <Target Name="FlyoutControls:Clean">
+        <MSBuild Projects="FlyoutControls.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FlyoutControls:Make">
+        <MSBuild Projects="FlyoutControls.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ShowMsg;FlyoutControls"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ShowMsg:Clean;FlyoutControls:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ShowMsg:Make;FlyoutControls:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

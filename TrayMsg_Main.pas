@@ -1,4 +1,4 @@
-unit ShowMsg_Main;
+unit TrayMsg_Main;
 
 interface
 

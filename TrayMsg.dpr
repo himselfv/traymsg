@@ -1,10 +1,10 @@
-program ShowMsg;
+program TrayMsg;
 
 uses
   Forms,
   InstanceChecker,
   TaskbarFlyout in 'TaskbarFlyout.pas' {FlyoutForm},
-  ShowMsg_Main in 'ShowMsg_Main.pas' {MainForm};
+  TrayMsg_Main in 'TrayMsg_Main.pas' {MainForm};
 
 {$R *.res}
 

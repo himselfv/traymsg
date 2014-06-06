@@ -3,7 +3,7 @@
         <ProjectGuid>{B00BF3A8-6A58-405F-B865-89B93C96457F}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="ShowMsg.dproj">
+        <Projects Include="TrayMsg.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="FlyoutControls.dproj">
@@ -17,14 +17,14 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
-    <Target Name="ShowMsg">
-        <MSBuild Projects="ShowMsg.dproj"/>
+    <Target Name="TrayMsg">
+        <MSBuild Projects="TrayMsg.dproj"/>
     </Target>
-    <Target Name="ShowMsg:Clean">
-        <MSBuild Projects="ShowMsg.dproj" Targets="Clean"/>
+    <Target Name="TrayMsg:Clean">
+        <MSBuild Projects="TrayMsg.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="ShowMsg:Make">
-        <MSBuild Projects="ShowMsg.dproj" Targets="Make"/>
+    <Target Name="TrayMsg:Make">
+        <MSBuild Projects="TrayMsg.dproj" Targets="Make"/>
     </Target>
     <Target Name="FlyoutControls">
         <MSBuild Projects="FlyoutControls.dproj"/>
@@ -36,13 +36,13 @@
         <MSBuild Projects="FlyoutControls.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="ShowMsg;FlyoutControls"/>
+        <CallTarget Targets="TrayMsg;FlyoutControls"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="ShowMsg:Clean;FlyoutControls:Clean"/>
+        <CallTarget Targets="TrayMsg:Clean;FlyoutControls:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="ShowMsg:Make;FlyoutControls:Make"/>
+        <CallTarget Targets="TrayMsg:Make;FlyoutControls:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

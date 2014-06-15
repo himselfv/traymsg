@@ -21,10 +21,13 @@ type
   TMainForm = class(TFlyoutForm)
     TrayIcon: TTrayIcon;
     ApplicationEvents1: TApplicationEvents;
-    DismissAll: TLinkLabel;
+    DismissAllLink: TLinkLabel;
     SweepTimer: TTimer;
     InstanceTimer: TTimer;
     Scrollbox: TScrollBox;
+    pmRightClick: TPopupMenu;
+    miExit: TMenuItem;
+    miDismissAll: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure TrayIconClick(Sender: TObject);
@@ -35,10 +38,13 @@ type
     procedure InstanceTimerTimer(Sender: TObject);
     procedure FormMouseWheel(Sender: TObject; Shift: TShiftState;
       WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
-    procedure DismissAllLinkClick(Sender: TObject; const Link: string;
+    procedure DismissAllLinkLinkClick(Sender: TObject; const Link: string;
       LinkType: TSysLinkType);
     procedure ActionLinkClick(Sender: TObject; const Link: string;
       LinkType: TSysLinkType);
+    procedure miExitClick(Sender: TObject);
+    procedure miDismissAllClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   protected
     NoStart: boolean; //don't start UI, only execute a command (add event etc)
     procedure ParseCommandLine(ALine: string);
@@ -57,6 +63,7 @@ type
   public
     procedure ReloadEvents;
     function AddEvent(const ACaption, AText: string; AAction: string): integer;
+    procedure DismissAll;
   end;
 
 var
@@ -70,7 +77,7 @@ uses UITypes, Registry, ShellApi, InstanceChecker;
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   inherited;
-//  Self.Resizeable := true; //for testing
+  Self.Resizeable := true; //for testing
   FEvents := TObjectList<TEventRecord>.Create({OwnsObjects=}true);
   Application.ShowMainForm := false;
   ReloadEvents();
@@ -425,6 +432,14 @@ begin
   FEvents.Delete(AIndex);
 end;
 
+procedure TMainForm.DismissAll;
+var i: integer;
+begin
+  for i := 0 to FEvents.Count-1 do
+    FEvents[i].Dismissing := true;
+  SweepTimer.Enabled := true;
+end;
+
 procedure TMainForm.EventListChanged;
 begin
   if FEvents.Count<=0 then begin
@@ -454,21 +469,33 @@ begin
   end;
 end;
 
-procedure TMainForm.DismissAllLinkClick(Sender: TObject; const Link: string;
+procedure TMainForm.DismissAllLinkLinkClick(Sender: TObject; const Link: string;
   LinkType: TSysLinkType);
-var i: integer;
 begin
-  if Link='id://1' then begin
-    for i := 0 to FEvents.Count-1 do
-      FEvents[i].Dismissing := true;
-    SweepTimer.Enabled := true;
-  end;
+  if Link='id://1' then
+    DismissAll();
+end;
+
+procedure TMainForm.miDismissAllClick(Sender: TObject);
+begin
+  inherited;
+  DismissAll();
 end;
 
 procedure TMainForm.ActionLinkClick(Sender: TObject; const Link: string;
   LinkType: TSysLinkType);
+var parts: TStringArray;
+  params: string;
+  i: integer;
 begin
-  ShellExecute(0, 'open', PChar(Link), nil, '', SW_SHOW);
+  parts := CommandLineParams(Link);
+  if Length(parts)<=0 then exit;
+  if Length(parts)>1 then begin
+    params := EncodeStr(parts[1]);
+    for i := 2 to Length(parts)-1 do
+       params := params + ' ' + EncodeStr(parts[i]);
+  end;
+  ShellExecute(0, nil, PChar(parts[0]), PChar(params), '', SW_SHOW);
 end;
 
 
@@ -546,6 +573,13 @@ begin
   Scrollbox.Realign;
 end;
 
+procedure TMainForm.FormShow(Sender: TObject);
+begin
+  inherited;
+ //Some controls don't properly Realign() unless the form has been shown once
+  FormResize(Self);
+end;
+
 procedure TMainForm.PanelMouseEnter(Sender: TObject);
 begin
   TPanel(Sender).Color := clHighlight;
@@ -554,6 +588,12 @@ end;
 procedure TMainForm.PanelMouseLeave(Sender: TObject);
 begin
   TPanel(Sender).Color := clBtnFace;
+end;
+
+procedure TMainForm.miExitClick(Sender: TObject);
+begin
+  inherited;
+  Close;
 end;
 
 

@@ -4,6 +4,7 @@ inherited MainForm: TMainForm
   OnDestroy = FormDestroy
   OnMouseWheel = FormMouseWheel
   OnResize = FormResize
+  OnShow = FormShow
   ExplicitWidth = 335
   ExplicitHeight = 338
   PixelsPerInch = 96
@@ -19,7 +20,7 @@ inherited MainForm: TMainForm
   inherited Footer: TFlyoutLinkArea
     Width = 335
     ExplicitWidth = 335
-    object DismissAll: TLinkLabel
+    object DismissAllLink: TLinkLabel
       Left = 138
       Top = 11
       Width = 59
@@ -28,7 +29,7 @@ inherited MainForm: TMainForm
       Caption = '<a href="id://1">Dismiss all</a>'
       TabOrder = 0
       UseVisualStyle = True
-      OnLinkClick = DismissAllLinkClick
+      OnLinkClick = DismissAllLinkLinkClick
     end
   end
   object Scrollbox: TScrollBox
@@ -84,6 +85,7 @@ inherited MainForm: TMainForm
       BDFF047FBDFF047FBDFF047FBD96047FBD00047FBD00FFFFFF00FFFFFF00E007
       0000C0030000C001000080000000000000000000000000000000000000000000
       000000000000000000000000000080010000C0030000E0070000F00F0000}
+    PopupMenu = pmRightClick
     Visible = True
     OnBalloonClick = TrayIconClick
     OnClick = TrayIconClick
@@ -106,5 +108,17 @@ inherited MainForm: TMainForm
     OnTimer = InstanceTimerTimer
     Left = 32
     Top = 120
+  end
+  object pmRightClick: TPopupMenu
+    Left = 32
+    Top = 176
+    object miDismissAll: TMenuItem
+      Caption = 'Dismiss all'
+      OnClick = miDismissAllClick
+    end
+    object miExit: TMenuItem
+      Caption = 'Exit'
+      OnClick = miExitClick
+    end
   end
 end

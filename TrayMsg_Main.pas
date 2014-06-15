@@ -247,7 +247,7 @@ begin
 end;
 
 const
-  RegKey: string = 'Software\EvtWatch';
+  RegKey: string = 'Software\TrayMsg';
 
 function OpenRegistry: TRegistry;
 begin

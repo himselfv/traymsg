@@ -1,3 +1,5 @@
+# TrayMsg
+
 This is a simple tool which shows tray notifications and stacks them so that all non-dismissed notifications are displayed each time you run the program.
 
 You can run it for example from a Task Scheduler, when some kind of unfavorable condition (e.g. some event log records) is detected.

@@ -12,11 +12,11 @@ traymsg /add "Caption" "Message text" "C:\\Path\\Filename"
 
 A tray notification will immediately be displayed and a yellow warning icon will appear in the tray. If the app is already running, it will just add this warning to the list.
 
-![Tray notification](http://wiki.traymsg.googlecode.com/hg/images/screenshot-1.png)
+![Tray notification](https://bitbucket.org/himselfv/traymsg/wiki/images/screenshot-1.png)
 
 If you click the icon, a window pops up with all unresolved warnings. The list stays the same even after reboot.
 
-![Warning messages](http://wiki.traymsg.googlecode.com/hg/images/screenshot-2.png)
+![Warning messages](https://bitbucket.org/himselfv/traymsg/wiki/images/screenshot-2.png)
 
 To prevent the icon from being shown if it's not already running, add:
 ~~~~
